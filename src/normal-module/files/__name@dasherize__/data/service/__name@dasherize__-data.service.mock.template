@@ -1,0 +1,20 @@
+import { Observable, of } from 'rxjs';
+import { <%= classify(name) %>DataService, <%= classify(name) %>Entity } from '<%= apiPath %>/<%= dasherize(name) %>';
+
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class <%= classify(name) %>DataServiceMock extends <%= classify(name) %>DataService {
+    private <%= camelize(name) %>: <%= classify(name) %>Entity = {
+        id: 'test',
+        theme: 'kb-dark-theme',
+    };
+
+    public override get$(userId: string): Observable<<%= classify(name) %>Entity | null> {
+        return of(this.<%= camelize(name) %>);
+    }
+
+    public override update$(<%= camelize(name) %>: <%= classify(name) %>Entity): Observable<<%= classify(name) %>Entity> {
+        return of(<%= camelize(name) %>);
+    }
+}

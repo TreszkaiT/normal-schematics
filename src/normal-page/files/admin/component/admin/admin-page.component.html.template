@@ -1,0 +1,11 @@
+<section class="admin-page">
+	<ng-container *ngIf="items$ | async as items">
+		<div class="menu">
+			<p-menu [model]="items"></p-menu>
+		</div>
+	
+		<div class="content">
+			<router-outlet></router-outlet>
+		</div>
+	</ng-container>
+</section>

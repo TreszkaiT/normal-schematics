@@ -1,0 +1,73 @@
+import { MenuItem } from 'primeng/api';
+import { AuthorizationService } from '<%= apiPath %>authorization';
+import { PermissionsService } from '<%= apiPath %>permission';
+import { RoleNames } from '<%= apiPath %>role';
+import { RoleAdminPermissionsService } from '<%= modulePath %>/role/admin/service';
+import { <%= classify(name) %>AdminPermissionsService } from '<%= modulePath %>/<%= dasherize(name) %>/admin/service';
+
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+
+import {
+    AdminPermissionsService,
+    AdminRolePermissionsService,
+    Admin<%= classify(name) %>PermissionsService,
+} from '../../permissions';
+import { AuthenticationStateService } from '<%= apiPath %>authentication';
+import { Observable, ReplaySubject, Subject, of, switchMap } from 'rxjs';
+
+@Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-admin-page',
+    templateUrl: './admin-page.component.html',
+    styleUrls: ['./admin-page.component.scss'],
+})
+export class AdminPageComponent implements OnInit {
+    public items$!: Observable<MenuItem[]>;
+    public items$$: Subject<MenuItem[]>;
+
+    public constructor(
+        private adminPermissionsService: AdminPermissionsService,           // ide lettek a Permission-ok beinjektálva, de szürkék, ezért nincsennek itt használva. csak azért kerültek ide, hogy ezen a modon kerüljenek be a rendszerbe, mert
+        private adminRolePermissionsService: AdminRolePermissionsService,   // mert így kerülnek be a Global Permission Service-be, ezen a módon ezek a Permission-ok
+        private admin<%= classify(name) %>PermissionsService: Admin<%= classify(name) %>PermissionsService,   // ezt a src/app/module/role/form/component/role-form.service -ben a createRoleRarams() metódusban fogjuk használni
+        private authenticationStateService: AuthenticationStateService,
+        private authorizationService: AuthorizationService
+    ) {
+        this.items$$ = new ReplaySubject();
+    }
+
+    public ngOnInit(): void {
+        this.items$ = this.authenticationStateService.selectAuthenticated<%= classify(name) %>$().pipe(
+            switchMap((authenticated<%= classify(name) %>) => {
+                const items: MenuItem[] = [];                                           // itt rajuk össze a bal oldali menü-elemeket
+
+                if (
+                    this.authorizationService.hasPermission(RoleNames.ADMIN) ||         // ha vannak ilyen Role-ok
+                    this.authorizationService.hasPermission(                
+                        <%= classify(name) %>AdminPermissionsService.view<%= classify(name) %>AdminPage                   // vagy Permission-ok
+                    )
+                ) {
+                    items.push({
+                        label: '<%= classify(name) %>',                                                  // akkor ezt a User menünevet beletesszük az items tömbbe, és megjelnítjük a felületen
+                        routerLink: '<%= camelize(name) %>',
+                    });
+                }
+
+                if (
+                    this.authorizationService.hasPermission(RoleNames.ADMIN) ||
+                    this.authorizationService.hasPermission(
+                        RoleAdminPermissionsService.viewRoleAdminPage
+                    )
+                ) {
+                    items.push({
+                        label: 'Role',
+                        routerLink: 'role',
+                    });
+                }
+
+                this.items$$.next(items);
+
+                return this.items$$.asObservable();
+            })
+        );
+    }
+}

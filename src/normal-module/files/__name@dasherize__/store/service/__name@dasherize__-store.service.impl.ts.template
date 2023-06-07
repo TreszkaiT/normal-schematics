@@ -1,0 +1,28 @@
+import { Observable, of } from 'rxjs';
+import { <%= classify(name) %>Entity, <%= classify(name) %>StoreService } from '<%= apiPath %>/<%= dasherize(name) %>';
+
+import { Injectable } from '@angular/core';
+import { select, Store } from '@ngrx/store';
+
+import * as <%= camelize(name) %>Actions from '../state/<%= dasherize(name) %>.action';
+import { <%= classify(name) %>PartialState } from '../state/<%= dasherize(name) %>.reducer';
+import * as <%= camelize(name) %>Selectors from '../state/<%= dasherize(name) %>.selectors';
+
+@Injectable()
+export class <%= classify(name) %>StoreServiceImpl extends <%= classify(name) %>StoreService {
+    public constructor(private store: Store<<%= classify(name) %>PartialState>) {
+        super();
+    }
+
+    public override dispatchGetEntityAction(userId: string): void {
+        this.store.dispatch(<%= camelize(name) %>Actions.getEntity({ userId }));
+    }
+
+    public override dispatchUpdateEntityAction(entity: <%= classify(name) %>Entity): void {
+        this.store.dispatch(<%= camelize(name) %>Actions.updateEntity({ entity }));
+    }
+
+    public override selectEntity$(): Observable<<%= classify(name) %>Entity> {
+        return this.store.pipe(select(<%= camelize(name) %>Selectors.select<%= classify(name) %>));
+    }
+}

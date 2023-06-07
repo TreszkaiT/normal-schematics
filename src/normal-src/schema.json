@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "normal-util",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Name"
+        },
+        "srcPath": {
+            "type": "string",
+            "description": "SRC path"
+        },
+        "appPath": {
+            "type": "string",
+            "description": "APP path"
+        },        
+        "apiPath": {
+            "type": "string",
+            "description": "Api path"
+        },
+        "modulePath": {
+            "type": "string",
+            "description": "Module path"
+        }
+    },
+    "required": ["name", "srcPath", "appPath", "apiPath", "modulePath"]
+}

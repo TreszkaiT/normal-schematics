@@ -1,0 +1,94 @@
+import { MenuItem, PrimeNGConfig } from 'primeng/api';
+import { Observable, ReplaySubject, Subject, combineLatest, of, switchMap, tap } from 'rxjs';
+
+import { DOCUMENT } from '@angular/common';
+import { Inject, Injectable } from '@angular/core';
+
+import { ConfigStoreService } from './api/config';
+import { AuthenticationStateService } from './api/authentication';
+import { UserEntity, UserStoreService } from './api/user';
+import { AuthorizationService } from './api/authorization';
+import { AdminPermissionsService } from './page/admin/permissions';
+import { RoleNames } from './api/role';
+
+export interface AppComponentModel {
+    items: MenuItem[];
+    title: string;
+    users: UserEntity[];
+    selectedUser: UserEntity | null;
+}
+
+@Injectable()
+export class AppComponentService {
+    private componentModel$$: Subject<AppComponentModel>;
+
+    public constructor(
+        private authenticationStateService: AuthenticationStateService,
+        private authorizationService: AuthorizationService,
+        private configStoreService: ConfigStoreService,
+        private primengConfig: PrimeNGConfig,
+        private userStateService: UserStoreService,
+        @Inject(DOCUMENT) private document: Document
+    ) {
+        this.componentModel$$ = new ReplaySubject();
+    }
+
+    public init$(): Observable<AppComponentModel> {
+        this.primengConfig.ripple = true;
+
+        return combineLatest([
+            this.configStoreService.selectEntity$(),
+            this.authenticationStateService.selectAuthenticatedUser$(),
+            this.userStateService.selectEntityList$()
+
+        ]).pipe(
+            tap(([config, _, __]) => {
+                this.switchTheme(config.theme);
+            }),
+            switchMap(([config, authenticatedUser, users]) => {
+                const items: MenuItem[] = [
+                    {
+                        label: 'Introduction',
+                        routerLink: 'introduction',
+                    },
+                    {
+                        label: 'Config',
+                        routerLink: 'config',
+                    },
+                ];
+
+                if (this.authorizationService.hasPermission(RoleNames.ADMIN) || this.authorizationService.hasPermission(AdminPermissionsService.viewAdminPage)) {
+                    items.push( {
+                        label: 'Admin',
+                        routerLink: 'admin',
+                    })
+                }
+    
+                const appComponentModel: AppComponentModel = {
+                    items,
+                    selectedUser: authenticatedUser,
+                    title: 'knowledge-state-management',
+                    users,
+                };
+
+                this.componentModel$$.next(appComponentModel);
+    
+                return this.componentModel$$.asObservable();
+            })
+        );
+    }
+
+    public handleUserChange(user: UserEntity): void {
+        this.authenticationStateService.dispatchLogin(user);
+    }
+
+    private switchTheme(theme: string) {
+        let themeLink = this.document.getElementById(
+            'app-theme'
+        ) as HTMLLinkElement;
+
+        if (themeLink) {
+            themeLink.href = theme + '.css';
+        }
+    }
+}

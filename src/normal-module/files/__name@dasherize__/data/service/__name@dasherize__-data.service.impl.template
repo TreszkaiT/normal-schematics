@@ -1,0 +1,22 @@
+import { Observable } from 'rxjs';
+import { <%= classify(name) %>DataService, <%= classify(name) %>Entity } from '<%= apiPath %>/<%= dasherize(name) %>';
+
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class <%= classify(name) %>DataServiceImpl extends <%= classify(name) %>DataService {
+    public uri = 'localhost:3000';
+
+    public constructor(private httpClient: HttpClient) {
+        super();
+    }
+
+    public override get$(<%= camelize(name) %>Id: string): Observable<<%= classify(name) %>Entity | null> {
+        return this.httpClient.get<<%= classify(name) %>Entity>(`${this.uri}/<%= name.toLowerCase() %>/${<%= camelize(name) %>Id}`);
+    }
+
+    public override update$(<%= camelize(name) %>: <%= classify(name) %>Entity): Observable<<%= classify(name) %>Entity> {
+        return this.httpClient.patch<<%= classify(name) %>Entity>(`${this.uri}/<%= name.toLowerCase() %>`, <%= camelize(name) %>);
+    }
+}

@@ -1,0 +1,9 @@
+import { Identifiable } from '../identifiable';
+
+export const <%= name.toUpperCase() %>_FEATURE_KEY = '<%= camelize(name) %>';
+
+export interface <%= classify(name) %>Model {
+    theme: 'kb-light-theme' | 'kb-dark-theme';
+}
+
+export type <%= classify(name) %>Entity = <%= classify(name) %>Model & Identifiable;

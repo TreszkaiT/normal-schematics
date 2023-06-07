@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "normal",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Name",
+            "x-prompt": "What is Normal object name?"
+        },
+        "modules": {
+            "description": "Module names",
+            "type": "array",
+            "x-prompt": {
+                "message": "Which modules do you want to generate?",
+                "type": "list",
+                "items": [
+                    "src", "app", "api", "config", "page"
+                ]
+            }
+        },
+        "srcPath": {
+            "type": "string",
+            "default": "src",
+            "description": "Src path",
+            "x-prompt": "Generate the src directory files: ( src )"
+        },
+        "appPath": {
+            "type": "string",
+            "default": "src/app",
+            "description": "App path",
+            "x-prompt": "Generate the src/app directory files: ( src/app )"
+        },
+        "apiPath": {
+            "type": "string",
+            "default": "src/app/api",
+            "description": "Api path",
+            "x-prompt": "Where is your project api folder? ( src/app/api )"
+        },
+        "modulePath": {
+            "type": "string",
+            "default": "src/app/module",
+            "description": "Module path",
+            "x-prompt": "Where do you want to generate the selected modules? ( src/app/module )"
+        },
+        "pagePath": {
+            "type": "string",
+            "default": "src/app/page",
+            "description": "View path",
+            "x-prompt": "Where is your project core folder? ( src/app/page )"
+        }
+    },
+    "required": ["name"]
+}

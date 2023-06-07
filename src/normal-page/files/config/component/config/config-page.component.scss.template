@@ -1,0 +1,16 @@
+section {
+    display: flex;
+    margin: 1rem;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    button {
+        flex-basis: 20%;
+        margin: auto;
+    }
+
+    .code {
+        display: flex;
+    }
+}

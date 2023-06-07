@@ -1,0 +1,13 @@
+import { SharedModule } from '<%= modulePath %>/common';
+
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { ConfigPageComponent } from './component';
+import { ConfigPageRoutingModule } from './config-page-routing.module';
+
+@NgModule({
+    declarations: [ConfigPageComponent],
+    imports: [CommonModule, SharedModule, ConfigPageRoutingModule],
+})
+export class ConfigPageModule {}

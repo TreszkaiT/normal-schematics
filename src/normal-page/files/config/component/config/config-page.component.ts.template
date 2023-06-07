@@ -1,0 +1,30 @@
+import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ConfigStoreService } from '<%= apiPath %>/config';
+
+@Component({
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-config-page',
+    templateUrl: './config-page.component.html',
+    styleUrls: ['./config-page.component.scss'],
+})
+export class ConfigPageComponent {
+    public constructor(private configStoreService: ConfigStoreService) {}
+
+    public btn1Handler() {
+        this.configStoreService.dispatchGetEntityAction('test');
+    }
+
+    public btn2Handler() {
+        this.configStoreService.dispatchUpdateEntityAction({
+            id: 'test',
+            theme: 'kb-light-theme',
+        })
+    }
+
+    public btn3Handler() {
+        this.configStoreService.dispatchUpdateEntityAction({
+            id: 'test',
+            theme: 'kb-dark-theme',
+        })
+    }
+}

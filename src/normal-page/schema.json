@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "normal-page",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Name"
+        },
+        "modulePath": {
+            "type": "string",
+            "description": "Module path"
+        },
+        "apiPath": {
+            "type": "string",
+            "description": "Api path"
+        },
+        "pagePath": {
+            "type": "string",
+            "description": "View path"
+        }
+    },
+    "required": ["name", "modulePath", "apiPath", "pagePath"]
+}

@@ -1,0 +1,9 @@
+import { Observable } from 'rxjs';
+
+import { <%= classify(name) %>Entity } from './<%= dasherize(name) %>';
+
+export abstract class <%= classify(name) %>StoreService {
+    public abstract dispatchGetEntityAction(userId: string):            void;
+    public abstract dispatchUpdateEntityAction(entity: <%= classify(name) %>Entity):   void;
+    public abstract selectEntity$():                                    Observable<<%= classify(name) %>Entity>;
+}

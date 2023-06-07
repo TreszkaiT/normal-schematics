@@ -1,0 +1,8 @@
+import { Observable } from 'rxjs';
+
+import { <%= classify(name) %>Entity } from './<%= dasherize(name) %>';
+
+export abstract class <%= classify(name) %>DataService {
+    public abstract get$(userId: string):           Observable<<%= classify(name) %>Entity | null>;
+    public abstract update$(<%= camelize(name) %>: <%= classify(name) %>Entity):  Observable<<%= classify(name) %>Entity>;
+}

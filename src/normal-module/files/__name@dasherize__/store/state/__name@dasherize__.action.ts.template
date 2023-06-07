@@ -1,0 +1,29 @@
+import { <%= classify(name) %>Entity } from '<%= apiPath %>/<%= dasherize(name) %>';
+
+import { createAction, props } from '@ngrx/store';
+
+export const getEntity = createAction(
+    '[<%= classify(name) %> Component] Get Entity',
+    props<{ userId: string }>()
+);
+export const getEntitySuccess = createAction(
+    '[<%= classify(name) %> Component] Get Entity Success',
+    props<{ <%= camelize(name) %>: <%= classify(name) %>Entity }>()
+);
+export const getEntityFail = createAction(
+    '[<%= classify(name) %> Component] Get Entity Fail',
+    props<{ error: string }>()
+);
+
+export const updateEntity = createAction(
+    '[<%= classify(name) %> Component] Update Entity',
+    props<{ entity: <%= classify(name) %>Entity }>()
+);
+export const updateEntitySuccess = createAction(
+    '[<%= classify(name) %> Component] Update Entity Success',
+    props<{ <%= camelize(name) %>: <%= classify(name) %>Entity }>()
+);
+export const updateEntityFail = createAction(
+    '[<%= classify(name) %> Component] Update Entity Fail',
+    props<{ error: string }>()
+);

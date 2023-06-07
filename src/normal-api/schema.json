@@ -1,0 +1,16 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "normal-api",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "name"
+        },
+        "apiPath": {
+            "type": "string",
+            "description": "Location of api folder. Relative from project root."
+        }
+    },
+    "required": ["name", "apiPath"]
+}

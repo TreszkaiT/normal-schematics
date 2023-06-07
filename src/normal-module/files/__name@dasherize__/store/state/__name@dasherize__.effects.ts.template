@@ -1,0 +1,53 @@
+import { of } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { <%= classify(name) %>DataService, <%= classify(name) %>Entity } from '<%= apiPath %>/<%= dasherize(name) %>';
+
+import { Injectable } from '@angular/core';
+import { Actions, createEffect, ofType } from '@ngrx/effects';
+
+import * as <%= camelize(name) %>Actions from './<%= dasherize(name) %>.action';
+
+@Injectable()
+export class <%= classify(name) %>Effects {
+    public getEntity = createEffect(() =>
+        this.actions$.pipe(
+            ofType(<%= camelize(name) %>Actions.getEntity),
+            switchMap((action) => {
+                return this.<%= camelize(name) %>DataService.get$(action.userId).pipe(
+                    map((<%= camelize(name) %>) => {
+                        return <%= camelize(name) %>Actions.getEntitySuccess({
+                            <%= camelize(name) %>: <%= camelize(name) %> as <%= classify(name) %>Entity,
+                        });
+                    })
+                );
+            }),
+            catchError((error) => {
+                return of(
+                    <%= camelize(name) %>Actions.getEntityFail({ error: error.message })
+                );
+            })
+        )
+    );
+    public register = createEffect(() =>
+        this.actions$.pipe(
+            ofType(<%= camelize(name) %>Actions.updateEntity),
+            switchMap((action) => {
+                return this.<%= camelize(name) %>DataService
+                    .update$(action.entity)
+                    .pipe(
+                        map((<%= camelize(name) %>) =>
+                            <%= camelize(name) %>Actions.updateEntitySuccess({ <%= camelize(name) %> })
+                        )
+                    );
+            }),
+            catchError((error) =>
+                of(<%= camelize(name) %>Actions.updateEntityFail({ error: error.message }))
+            )
+        )
+    );
+
+    public constructor(
+        private actions$: Actions,
+        private <%= camelize(name) %>DataService: <%= classify(name) %>DataService
+    ) {}
+}

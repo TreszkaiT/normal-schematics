@@ -1,0 +1,18 @@
+import { <%= name.toUpperCase() %>_FEATURE_KEY } from '<%= apiPath %>/<%= dasherize(name) %>';
+
+import { createFeatureSelector, createSelector } from '@ngrx/store';
+
+import { <%= classify(name) %>State } from './<%= dasherize(name) %>.reducer';
+
+export const select<%= classify(name) %>State =
+    createFeatureSelector<<%= classify(name) %>State>(<%= name.toUpperCase() %>_FEATURE_KEY);
+
+export const select<%= classify(name) %> = createSelector(
+    select<%= classify(name) %>State,
+    (state: <%= classify(name) %>State) => state.<%= camelize(name) %>
+);
+
+export const selectError = createSelector(
+    select<%= classify(name) %>State,
+    (state: <%= classify(name) %>State) => state.error
+);

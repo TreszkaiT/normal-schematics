@@ -1,0 +1,26 @@
+import { <%= classify(name) %>StoreService } from '<%= apiPath %>/<%= dasherize(name) %>';
+import { <%= classify(name) %>Module } from '<%= modulePath %>/<%= dasherize(name) %>/<%= dasherize(name) %>.module';
+import { <%= classify(name) %>StoreServiceImpl } from '<%= modulePath %>/<%= dasherize(name) %>/store/service';
+
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { AdminPageRoutingModule } from './admin-page-routing.module';
+import { LeftSidebarComponent } from './component/left-sidebar/left-sidebar.component';
+import { AdminListsPageResolverService } from './component/list';
+import { AdminPageComponent } from './component/page/admin-page.component';
+
+
+@NgModule({
+  declarations: [AdminPageComponent, LeftSidebarComponent],
+  imports: [
+    <%= classify(name) %>Module,                                                    // e nélkül nem töltődik be automatikusan a <%= classify(name) %> module táblázatába induláskor az összes DB-ben lévő <%= dasherize(name) %> lista 
+  ],
+  providers: [                                                     // az app konfigját tartalmazza: apiUrl, title, stb...
+    {
+      provide: <%= classify(name) %>StoreService,
+      useClass: <%= classify(name) %>StoreServiceImpl,
+    },
+  ]
+})
+export class AdminPageModule {}

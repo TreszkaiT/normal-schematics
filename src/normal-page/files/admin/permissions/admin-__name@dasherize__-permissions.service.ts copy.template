@@ -1,0 +1,52 @@
+import { PermissionsService } from '<%= apiPath %>/permission';
+import { <%= classify(name) %>PermissionsService } from '<%= apiPath %>/<%= dasherize(name) %>';
+import { <%= classify(name) %>AdminPermissionsService } from '<%= modulePath %>/<%= dasherize(name) %>/admin/service';
+
+import { Injectable } from '@angular/core';
+
+@Injectable()
+export class Admin<%= classify(name) %>PermissionsService extends <%= classify(name) %>AdminPermissionsService {
+    constructor() {
+        super();
+
+        PermissionsService.addPermissions({
+            label: '<%= classify(name) %> Admin',
+            items: [
+                {
+                    label: <%= classify(name) %>AdminPermissionsService.view<%= classify(name) %>AdminPage,
+                    value: <%= classify(name) %>AdminPermissionsService.view<%= classify(name) %>AdminPage,
+                },
+                {
+                    label: <%= classify(name) %>AdminPermissionsService.view<%= classify(name) %>EditPage,
+                    value: <%= classify(name) %>AdminPermissionsService.view<%= classify(name) %>EditPage,
+                },
+                {
+                    label: <%= classify(name) %>AdminPermissionsService.view<%= classify(name) %>ListPage,
+                    value: <%= classify(name) %>AdminPermissionsService.view<%= classify(name) %>ListPage,
+                },
+            ],
+        });
+
+        PermissionsService.addPermissions({
+            label: '<%= classify(name) %>',
+            items: [
+                {
+                    label: <%= classify(name) %>PermissionsService.create<%= classify(name) %>Entity,
+                    value: <%= classify(name) %>PermissionsService.create<%= classify(name) %>Entity,
+                },
+                {
+                    label: <%= classify(name) %>PermissionsService.delete<%= classify(name) %>Entity,
+                    value: <%= classify(name) %>PermissionsService.delete<%= classify(name) %>Entity,
+                },
+                {
+                    label: <%= classify(name) %>PermissionsService.update<%= classify(name) %>Entity,
+                    value: <%= classify(name) %>PermissionsService.update<%= classify(name) %>Entity,
+                },
+                {
+                    label: <%= classify(name) %>PermissionsService.view<%= classify(name) %>Entity,
+                    value: <%= classify(name) %>PermissionsService.view<%= classify(name) %>Entity,
+                },
+            ],
+        });
+    }
+}

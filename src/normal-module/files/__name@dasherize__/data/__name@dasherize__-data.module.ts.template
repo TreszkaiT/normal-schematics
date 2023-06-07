@@ -1,0 +1,11 @@
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { <%= classify(name) %>DataModule } from './data/<%= dasherize(name) %>-data.module';
+import { <%= classify(name) %>StoreModule } from './store/<%= dasherize(name) %>-store.module';
+
+@NgModule({
+    declarations: [],
+    imports: [CommonModule, <%= classify(name) %>DataModule, <%= classify(name) %>StoreModule],
+})
+export class <%= classify(name) %>Module {}

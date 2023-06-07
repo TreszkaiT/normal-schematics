@@ -1,0 +1,51 @@
+import { <%= name.toUpperCase() %>_FEATURE_KEY, <%= classify(name) %>Entity } from '<%= apiPath %>/<%= dasherize(name) %>';
+
+import { createReducer, on } from '@ngrx/store';
+
+import * as actions from './<%= dasherize(name) %>.action';
+
+export interface <%= classify(name) %>State {
+    <%= camelize(name) %>: <%= classify(name) %>Entity;
+    error: string | null;
+}
+
+export const initialState: <%= classify(name) %>State = {
+    <%= camelize(name) %>: {
+        id: 'default',
+        theme: 'kb-light-theme',
+    },
+    error: null,
+};
+
+export interface <%= classify(name) %>PartialState {
+    readonly [<%= name.toUpperCase() %>_FEATURE_KEY]: <%= classify(name) %>State;
+}
+
+export const <%= camelize(name) %>Reducer = createReducer(
+    initialState,
+    on(actions.getEntitySuccess, (state, { <%= camelize(name) %> }) => {
+        return {
+            ...state,
+            <%= camelize(name) %>,
+        };
+    }),
+    on(actions.getEntityFail, (state, { error }) => {
+        return {
+            ...state,
+            error,
+        };
+    }),
+    on(actions.updateEntitySuccess, (state, { <%= camelize(name) %> }) => {
+        return {
+            ...state,
+            <%= camelize(name) %>,
+            error: null,
+        };
+    }),
+    on(actions.updateEntityFail, (state, { error }) => {
+        return {
+            ...state,
+            error,
+        };
+    })
+);

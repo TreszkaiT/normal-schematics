@@ -1,0 +1,13 @@
+import { SharedModule } from '<%= modulePath %>/common';
+
+import { CommonModule } from '@angular/common';
+import { NgModule } from '@angular/core';
+
+import { IntroductionComponent } from './component';
+import { IntroductionPageRoutingModule } from './introduction-page-routing.module';
+
+@NgModule({
+    declarations: [IntroductionComponent],
+    imports: [CommonModule, IntroductionPageRoutingModule, SharedModule],
+})
+export class IntroductionPageModule {}

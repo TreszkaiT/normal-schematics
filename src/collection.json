@@ -1,0 +1,35 @@
+{
+  "$schema": "../node_modules/@angular-devkit/schematics/collection-schema.json",
+  "schematics": {
+    "normal": {
+      "description": "A blank schematic.",
+      "factory": "./normal/index",
+      "schema": "./normal/schema.json"
+    },
+    "normal-src": {
+      "description": "Generate SRC files.",
+      "factory": "./normal-src/index",
+      "schema": "./normal-src/schema.json"
+    },
+    "normal-app": {
+      "description": "Generate APP files.",
+      "factory": "./normal-app/index",
+      "schema": "./normal-app/schema.json"
+    },
+    "normal-api": {
+      "description": "An normal State API schematic.",
+      "factory": "./normal-api/index",
+      "schema": "./normal-api/schema.json"
+    },   
+    "normal-module": {
+      "description": "An normal module schematic.",
+      "factory": "./normal-module/index",
+      "schema": "./normal-module/schema.json"
+    },
+    "normal-page": {
+      "description": "An normal Obj page schematic.",
+      "factory": "./normal-page/index",
+      "schema": "./normal-page/schema.json"
+    }
+  }
+}

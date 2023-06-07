@@ -1,0 +1,20 @@
+import { Injectable } from '@angular/core';
+import { ActionEnum } from '<%= apiPath %>/permission/action.enum';
+import { AdminResourceEnum } from '../enum';
+import { PermissionsService } from '<%= apiPath %>/permission';
+
+
+@Injectable()
+export class AdminPermissionsService {
+    public static viewAdminPage = ActionEnum.VIEW.toString() + AdminResourceEnum.ADMIN_PAGE.toString();
+
+    constructor() {
+        PermissionsService.addPermissions({
+            label: 'Admin',
+            items: [{
+                label: AdminPermissionsService.viewAdminPage,
+                value: AdminPermissionsService.viewAdminPage
+            }]
+        });
+    }
+}

@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/schema",
+    "$id": "normal-module",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string",
+            "description": "Name"
+        },
+        "modulePath": {
+            "type": "string",
+            "description": "Module path"
+        },
+        "apiPath": {
+            "type": "string",
+            "description": "Api path"
+        }
+    },
+    "required": ["name", "modulePath", "apiPath"]
+}

@@ -1,0 +1,17 @@
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { <%= classify(name) %>StoreService } from '<%= apiPath %>/<%= dasherize(name) %>';
+
+@Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'app-admin-page',
+  templateUrl: './admin-page.component.html',
+  styleUrls: ['./admin-page.component.scss'],
+})
+export class AdminPageComponent implements OnInit{
+  constructor(private <%= camelize(name) %>StoreService: <%= classify(name) %>StoreService) {
+  }
+
+  ngOnInit(): void {
+    this.<%= camelize(name) %>StoreService.dispatchListEntitiesAction();
+  }
+}

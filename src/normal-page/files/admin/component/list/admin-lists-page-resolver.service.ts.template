@@ -1,0 +1,13 @@
+import { <%= classify(name) %>StoreService } from '<%= apiPath %>/<%= dasherize(name) %>';
+
+import { Injectable } from '@angular/core';
+import { Resolve } from '@angular/router';
+
+@Injectable()
+export class AdminListsPageResolverService implements Resolve<void> {               // azért, hogy az admin oldalban a <%= classify(name) %> és a <%= classify(name) %>, stb. Entitások táblázatában már előre kiolvassa a listát az Angular Framework
+    constructor(private <%= camelize(name) %>StoreService: <%= classify(name) %>StoreService) {}
+
+    public resolve(): void {
+        this.<%= camelize(name) %>StoreService.dispatchListEntitiesAction();
+    }
+}
