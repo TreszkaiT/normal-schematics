@@ -15,7 +15,7 @@
                 "message": "Which modules do you want to generate?",
                 "type": "list",
                 "items": [
-                    "src", "app", "api", "config", "page"
+                    "src", "app", "api", "module", "page"
                 ]
             }
         },

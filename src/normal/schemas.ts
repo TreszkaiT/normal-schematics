@@ -15,7 +15,7 @@ export enum ModulesEnum {
     //api
     api             = "api",
     //modules
-    config          = "config",
+    module          = "module",
     //pages
     page            = "page",
 }

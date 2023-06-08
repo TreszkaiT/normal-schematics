@@ -13,7 +13,7 @@ export default function (schema: NormalSchema): Rule {
   return (_tree: Tree, context: SchematicContext) => {
     const moduleSchematics: Rule[] = [];
 
-    ['src', 'app', 'api', 'config', 'page'].forEach((moduleName) => {
+    ['src', 'app', 'api', 'module', 'page'].forEach((moduleName) => {
       if (schema.modules.includes(moduleName)) {
         moduleSchematics.push(schematic(`normal-${moduleName}`, schema));
       }
